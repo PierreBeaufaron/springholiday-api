@@ -1,9 +1,7 @@
 package com.hb.cda.springholiday.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.hb.cda.DataLoader;
-import com.hb.cda.springholiday.entity.Booking;
 import com.hb.cda.springholiday.entity.Room;
 
 import jakarta.persistence.EntityManager;

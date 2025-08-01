@@ -1,7 +1,6 @@
 package com.hb.cda.springholiday.security;
 
 import com.hb.cda.springholiday.security.jwt.JwtFilter;
-import com.hb.cda.springholiday.security.jwt.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

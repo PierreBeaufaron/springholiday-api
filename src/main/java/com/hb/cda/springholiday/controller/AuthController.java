@@ -3,7 +3,7 @@ package com.hb.cda.springholiday.controller;
 import com.hb.cda.springholiday.controller.dto.login.LoginCredentialsDto;
 import com.hb.cda.springholiday.controller.dto.login.LoginResponseDTO;
 import com.hb.cda.springholiday.entity.User;
-import com.hb.cda.springholiday.service.impl.AuthServiceImpl;
+import com.hb.cda.springholiday.service.AuthService;
 import com.hb.cda.springholiday.service.impl.TokenPair;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/")
 @AllArgsConstructor
 public class AuthController {
-    private final AuthServiceImpl authService;
+    private final AuthService authService;
 
     @PostMapping("login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid LoginCredentialsDto credentials) {

@@ -1,7 +1,6 @@
 package com.hb.cda.springholiday.controller.dto.booking;
 
 import com.hb.cda.springholiday.controller.dto.room.RoomInListDTO;
-import com.hb.cda.springholiday.entity.Room;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

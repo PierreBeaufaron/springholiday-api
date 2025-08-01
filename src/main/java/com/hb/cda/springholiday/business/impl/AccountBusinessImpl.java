@@ -3,11 +3,11 @@ package com.hb.cda.springholiday.business.impl;
 import com.hb.cda.springholiday.business.AccountBusiness;
 import com.hb.cda.springholiday.business.exception.UserAlreadyExistsException;
 import com.hb.cda.springholiday.entity.User;
+import com.hb.cda.springholiday.repository.RefreshTokenRepository;
 import com.hb.cda.springholiday.repository.UserRepository;
 import com.hb.cda.springholiday.security.jwt.JwtUtil;
 import com.hb.cda.springholiday.service.MailService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,7 @@ public class AccountBusinessImpl implements AccountBusiness {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
     public User register(User user) {
@@ -47,11 +48,27 @@ public class AccountBusinessImpl implements AccountBusiness {
 
     @Override
     public void resetPassword(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow();
+        String token = jwtUtil.generateToken(user, Instant.now().plus(1, ChronoUnit.HOURS));
+        mailService.sendResetPassword(user, token);
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+        String hashedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(hashedPassword);
+        userRepository.save(user);
+        //Optionnel: On invalide tous les refresh token du user (on les supprime en fait)
+        //pour le forcer à se reconnecter sur ses devices avec son nouveau mot de passe
+        refreshTokenRepository.deleteByUser(user);
 
     }
 
     @Override
     public void deleteAccount(User user) {
-
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteAccount'");
     }
+
 }
